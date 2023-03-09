@@ -17,10 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val rollButton: Button = findViewById(R.id.button)
-        rollButton.setOnClickListener {
-            rollDice()
-        }
+        rollDice();
 
         val homeScreenImage =
             findViewById<ImageView>(R.id.imageView).setImageResource((R.drawable.dice_6))
@@ -32,22 +29,60 @@ class MainActivity : AppCompatActivity() {
      */
     private fun rollDice() {
         val dice = Dice(6)
-        val diceRoll = dice.roll()
+        val button1: Button = findViewById(R.id.button)
+        val button2: Button = findViewById(R.id.button2)
+        val score1Text: TextView = findViewById(R.id.score1)
+        val score2Text: TextView = findViewById(R.id.score2)
         val luckyNumber = 4
-        val diceImage: ImageView = findViewById(R.id.imageView)
-        when (diceRoll) {
-            1 -> {
-                diceImage.setImageResource(R.drawable.dice_1)
-            }
-            2 -> diceImage.setImageResource(R.drawable.dice_2)
-            3 -> diceImage.setImageResource(R.drawable.dice_3)
-            4 -> diceImage.setImageResource(R.drawable.dice_4)
-            5 -> diceImage.setImageResource(R.drawable.dice_5)
-            6 -> diceImage.setImageResource(R.drawable.dice_6)
+        var score1 = 0
+        var score2 = 0
+        findViewById<TextView>(R.id.textView2).setText(luckyNumber.toString())
 
+        button1.setOnClickListener {
+
+            val diceImage: ImageView = findViewById(R.id.imageView)
+            val diceRoll1 = dice.roll()
+            when (diceRoll1) {
+                luckyNumber -> {
+                    score1++
+                    Toast.makeText(this, "Congratulations! You guessed the lucky number", Toast.LENGTH_SHORT).show()
+                    diceImage.setImageResource(R.drawable.dice_4)
+
+                }
+                1 -> diceImage.setImageResource(R.drawable.dice_1)
+                2 -> diceImage.setImageResource(R.drawable.dice_2)
+                3 -> diceImage.setImageResource(R.drawable.dice_3)
+                4 -> diceImage.setImageResource(R.drawable.dice_4)
+                5 -> diceImage.setImageResource(R.drawable.dice_5)
+                6 -> diceImage.setImageResource(R.drawable.dice_6)
+            }
+            score1Text.text = score1.toString()
+            diceImage.contentDescription = diceRoll1.toString()
         }
 
-        diceImage.contentDescription = diceRoll.toString()
+        button2.setOnClickListener {
+
+            val diceImage2: ImageView = findViewById(R.id.imageView2)
+            val diceImage: ImageView = findViewById(R.id.imageView)
+            val diceRoll2 = dice.roll()
+            when (diceRoll2) {
+                luckyNumber -> {
+                    score2++
+                    Toast.makeText(this, "Congratulations! You guessed the lucky number", Toast.LENGTH_SHORT).show()
+                    diceImage2.setImageResource(R.drawable.dice_4)
+
+                }
+                1 -> diceImage2.setImageResource(R.drawable.dice_1)
+                2 -> diceImage2.setImageResource(R.drawable.dice_2)
+                3 -> diceImage2.setImageResource(R.drawable.dice_3)
+                4 -> diceImage2.setImageResource(R.drawable.dice_4)
+                5 -> diceImage2.setImageResource(R.drawable.dice_5)
+                6 -> diceImage2.setImageResource(R.drawable.dice_6)
+            }
+            score2Text.text = score2.toString()
+            diceImage.contentDescription = diceRoll2.toString()
+        }
+
     }
 }
 
